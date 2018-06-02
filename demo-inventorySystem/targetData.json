@@ -1,0 +1,40 @@
+{
+  "user": {
+    "name": "Vineet",
+    "favoriteColor": "orange",
+    "friends": [
+      {
+        "name": "John",
+        "favoriteColor": "black",
+        "friends": [
+          {
+            "name": "Vineet",
+            "favoriteColor": "orange"
+          },
+          {
+            "name": "Alex",
+            "favoriteColor": "green"
+          },
+          {
+            "name": "Justin",
+            "favoriteColor": "red"
+          }
+        ]
+      },
+      {
+        "name": "Alex",
+        "favoriteColor": "green",
+        "friends": [
+          {
+            "name": "John",
+            "favoriteColor": "black"
+          },
+          {
+            "name": "Vineet",
+            "favoriteColor": "orange"
+          }
+        ]
+      }
+    ]
+  }
+}

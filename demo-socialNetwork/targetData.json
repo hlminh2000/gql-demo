@@ -1,0 +1,48 @@
+{
+  "data": {
+    "customer": {
+      "name": "Vineet",
+      "purchases": [
+        {
+          "manufacturer": {
+            "name": "Apple",
+            "products": [
+              {
+                "name": "iPhone"
+              },
+              {
+                "name": "iPod"
+              }
+            ]
+          }
+        },
+        {
+          "manufacturer": {
+            "name": "Samsung",
+            "products": [
+              {
+                "name": "Galazxy S8"
+              },
+              {
+                "name": "Galazxy Note 8"
+              }
+            ]
+          }
+        },
+        {
+          "manufacturer": {
+            "name": "Apple",
+            "products": [
+              {
+                "name": "iPhone"
+              },
+              {
+                "name": "iPod"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
