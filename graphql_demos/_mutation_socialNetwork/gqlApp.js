@@ -22,7 +22,9 @@ const newUser = (_, { userData: { name, favoriteColor } }) => {
   if (!existingUser) {
     users.push(newUser);
   }
-  return existingUser || newUser;
+  return resolveUser(_, {
+    name: existingUser ? existingUser.name : newUser.name
+  });
 };
 
 const newFriendship = (
