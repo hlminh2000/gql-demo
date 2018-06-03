@@ -18,8 +18,11 @@ const newUser = (_, { userData: { name, favoriteColor } }) => {
     favoriteColor,
     friends: []
   };
-  users.push(newUser);
-  return newUser;
+  const existingUser = users.find(({ name: _name }) => name === _name);
+  if (!existingUser) {
+    users.push(newUser);
+  }
+  return existingUser || newUser;
 };
 
 const newFriendship = (
