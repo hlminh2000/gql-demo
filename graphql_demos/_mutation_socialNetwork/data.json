@@ -1,28 +1,3 @@
 {
-  "users": [
-    {
-      "id": 0,
-      "name": "John",
-      "favoriteColor": "black",
-      "friends": ["Vineet", "Alex", "Justin"]
-    },
-    {
-      "id": 1,
-      "name": "Vineet",
-      "favoriteColor": "orange",
-      "friends": ["John", "Alex"]
-    },
-    {
-      "id": 2,
-      "name": "Alex",
-      "favoriteColor": "green",
-      "friends": ["John", "Vineet"]
-    },
-    {
-      "id": 3,
-      "name": "Justin",
-      "favoriteColor": "red",
-      "friends": ["John"]
-    }
-  ]
+  "users": []
 }
