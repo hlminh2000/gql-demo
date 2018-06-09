@@ -9,16 +9,16 @@ const typeDefs = `
     manufacturer: Manufacturer
   }
 
-  type Manufacturer{
+  type Manufacturer {
     id: String
     name: String
-    products: [Product]
+    products(id: String): [Product]
   }
 
-  type Customer{
+  type Customer {
     id: String
     name: String
-    purchases: [Product]
+    purchases(id: String): [Product]
   }
 
   type Query {
@@ -44,7 +44,10 @@ const resolveManufacturer = (_, { id: queryId }) =>
     .map(({ id, name, products }) => ({
       id: () => id,
       name: () => name,
-      products: () => products.map(prodId => resolveProduct(_, { id: prodId }))
+      products: ({ id: queryProductId }) =>
+        queryProductId
+          ? [resolveProduct(_, { id: queryProductId })]
+          : products.map(prodId => resolveProduct(_, { id: prodId }))
     }))[0];
 
 const resolveCustomer = (_, { id: queryId }) =>
@@ -53,8 +56,10 @@ const resolveCustomer = (_, { id: queryId }) =>
     .map(({ id, name, purchases }) => ({
       id: () => id,
       name: () => name,
-      purchases: () =>
-        purchases.map(prodId => resolveProduct(_, { id: prodId }))
+      purchases: ({ id: queryProductId }) =>
+        queryProductId
+          ? [resolveProduct(_, { id: queryProductId })]
+          : purchases.map(prodId => resolveProduct(_, { id: prodId }))
     }))[0];
 
 module.exports = makeExecutableSchema({

@@ -1,46 +1,22 @@
 {
   "data": {
-    "customer": {
-      "name": "Vineet",
-      "purchases": [
+    "user": {
+      "name": "Justin",
+      "favoriteColor": "red",
+      "friends": [
         {
-          "manufacturer": {
-            "name": "Apple",
-            "products": [
-              {
-                "name": "iPhone"
-              },
-              {
-                "name": "iPod"
-              }
-            ]
-          }
-        },
-        {
-          "manufacturer": {
-            "name": "Samsung",
-            "products": [
-              {
-                "name": "Galazxy S8"
-              },
-              {
-                "name": "Galazxy Note 8"
-              }
-            ]
-          }
-        },
-        {
-          "manufacturer": {
-            "name": "Apple",
-            "products": [
-              {
-                "name": "iPhone"
-              },
-              {
-                "name": "iPod"
-              }
-            ]
-          }
+          "name": "John",
+          "friends": [
+            {
+              "favoriteColor": "orange"
+            },
+            {
+              "favoriteColor": "green"
+            },
+            {
+              "favoriteColor": "red"
+            }
+          ]
         }
       ]
     }

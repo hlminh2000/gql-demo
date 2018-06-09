@@ -2,50 +2,50 @@ const { uniq } = require("lodash");
 const makeExecutableSchema = require("graphql-tools").makeExecutableSchema;
 const { users } = require("./data.json");
 
-const resolveUser = (_, { name: queryName }) =>
+const resolveUser = (_, { id: queryId }) =>
   users
-    .filter(({ name }) => name === queryName)
-    .map(({ name, favoriteColor, friends }) => ({
+    .filter(({ id }) => id === queryId)
+    .map(({ id, name, favoriteColor, friends }) => ({
+      id: id,
       name: () => name,
       favoriteColor: () => favoriteColor,
-      friends: () =>
-        friends.map(friendName => resolveUser(_, { name: friendName }))
+      friends: () => friends.map(friendId => resolveUser(_, { id: friendId }))
     }))[0];
 
 const newUser = (_, { userData: { name, favoriteColor } }) => {
+  const id = users.length;
   const newUser = {
+    id,
     name,
     favoriteColor,
     friends: []
   };
-  const existingUser = users.find(({ name: _name }) => name === _name);
-  if (!existingUser) {
-    users.push(newUser);
-  }
+  users.push(newUser);
   return resolveUser(_, {
-    name: existingUser ? existingUser.name : newUser.name
+    id: newUser.id
   });
 };
 
 const newFriendship = (
   _,
-  { friendship: { from: fromUserName, to: toUserName } }
+  { friendship: { from: fromUserId, to: toUserId } }
 ) => {
-  const fromUser = users.find(({ name }) => name === fromUserName);
-  const toUser = users.find(({ name }) => name === toUserName);
-  if (fromUser && toUserName) {
-    fromUser.friends = uniq([...fromUser.friends, toUserName]);
-    toUser.friends = uniq([...toUser.friends, fromUserName]);
+  const fromUser = users.find(({ name }) => name === fromUserId);
+  const toUser = users.find(({ name }) => name === toUserId);
+  if (fromUser && toUserId) {
+    fromUser.friends = uniq([...fromUser.friends, toUserId]);
+    toUser.friends = uniq([...toUser.friends, fromUserId]);
   }
   return {
-    from: () => resolveUser(_, { name: fromUserName }),
-    to: () => resolveUser(_, { name: toUserName })
+    from: () => resolveUser(_, { id: fromUserId }),
+    to: () => resolveUser(_, { id: toUserId })
   };
 };
 
 module.exports = makeExecutableSchema({
   typeDefs: `
-    type User {
+    type User{
+      id: Int
       name: String
       favoriteColor: String
       friends: [User]
@@ -57,7 +57,7 @@ module.exports = makeExecutableSchema({
     }
 
     type Query {
-      user(name:String!): User
+      user(id: Int!): User
     }
 
     input UserInput {
@@ -66,13 +66,13 @@ module.exports = makeExecutableSchema({
     }
 
     input FriendshipInput {
-      from: String!
-      to: String!
+      from: Int!
+      to: Int!
     }
 
     type Mutation {
       newUser(userData: UserInput!): User
-      newFriendship(friendship: FriendshipInput): Friendship
+      newFriendship(friendship: FriendshipInput!): Friendship
     }
   `,
   resolvers: {

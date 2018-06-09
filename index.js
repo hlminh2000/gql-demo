@@ -3,8 +3,8 @@ const PORT = process.env.PORT || 3000;
 const { isEqual } = require("lodash");
 const express = require("express");
 const bodyParser = require("body-parser");
-const graphqlExpress = require("graphql-server-express").graphqlExpress;
-const graphiqlExpress = require("graphql-server-express").graphiqlExpress;
+const graphqlExpress = require("apollo-server-express").graphqlExpress;
+const graphiqlExpress = require("apollo-server-express").graphiqlExpress;
 const fetch = require("node-fetch");
 const cors = require("cors");
 
