@@ -3,12 +3,11 @@ const makeExecutableSchema = require("graphql-tools").makeExecutableSchema;
 const { users } = require("./data.json");
 const fs = require("fs");
 
-const writeToDisk = () => {
+const writeToDisk = () =>
   fs.writeFileSync(
     "graphql_demos/_mutation_socialNetwork/data.json",
     JSON.stringify({ users }, null, 2)
   );
-};
 
 const resolveUser = (_, { id: queryId }) =>
   users
