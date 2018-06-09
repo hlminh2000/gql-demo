@@ -1,33 +1,6 @@
 const makeExecutableSchema = require("graphql-tools").makeExecutableSchema;
 const { products, manufacturers, customers } = require("./data.json");
 
-const typeDefs = `
-  type Product {
-    id: String
-    name: String
-    inStock: Int
-    manufacturer: Manufacturer
-  }
-
-  type Manufacturer {
-    id: String
-    name: String
-    products(id: String): [Product]
-  }
-
-  type Customer {
-    id: String
-    name: String
-    purchases(id: String): [Product]
-  }
-
-  type Query {
-    product(id: String): Product
-    manufacturer(id: String): Manufacturer
-    customer(id: String): Customer
-  }
-`;
-
 const resolveProduct = (_, { id: queryId }) =>
   products
     .filter(({ id }) => id === queryId)
@@ -63,7 +36,32 @@ const resolveCustomer = (_, { id: queryId }) =>
     }))[0];
 
 module.exports = makeExecutableSchema({
-  typeDefs,
+  typeDefs: `
+    type Product {
+      id: String
+      name: String
+      inStock: Int
+      manufacturer: Manufacturer
+    }
+
+    type Manufacturer {
+      id: String
+      name: String
+      products(id: String): [Product]
+    }
+
+    type Customer {
+      id: String
+      name: String
+      purchases(id: String): [Product]
+    }
+
+    type Query {
+      product(id: String): Product
+      manufacturer(id: String): Manufacturer
+      customer(id: String): Customer
+    }
+  `,
   resolvers: {
     Query: {
       product: resolveProduct,
